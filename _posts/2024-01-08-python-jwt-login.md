@@ -1,9 +1,9 @@
 ---
 title: JWT Login (python/flask)
-layout: base
+layout: post
 description: A login screen that interacts with Python and obtains a JWT  
-type: ccc
-courses: { csp: {week: 18 }}
+type: plan
+courses: { csp: {week: 4 }}
 ---
 
 <!-- 
