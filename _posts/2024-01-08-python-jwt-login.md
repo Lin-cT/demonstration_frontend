@@ -13,6 +13,10 @@ The form triggers the login_user function defined in the JavaScript below when t
 -->
 <form action="javascript:login_user()">
     <p><label>
+        Email:
+        <input type="email" name="email" id="email" required>
+    </label></p>
+    <p><label>
         User ID:
         <input type="text" name="uid" id="uid" required>
     </label></p>
@@ -40,6 +44,7 @@ The script defines a function when the page loads. This function is triggered wh
 
         // Set the body of the request to include login data from the DOM
         const body = {
+            email: document.getElementById("email").value, // Retrieve email
             uid: document.getElementById("uid").value,
             password: document.getElementById("password").value,
         };
