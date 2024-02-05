@@ -90,10 +90,11 @@
         <div id="output" class="message"></div>
     <a href="https://lin-ct.github.io/demonstration_frontend/login.html">Sign Up</a>
     </div>
-    <!-- Include any footer content if needed -->
 </body>
-<script>
+<script type="module">
     import { uri, options } from '{{site.baseurl}}/assets/js/api/config.js';
+</script>
+<script>
     function signup_user(){
         // Set Authenticate endpoint
         const url = uri + '/api/users/';
@@ -117,8 +118,9 @@
         .then(response => {
             // handle error response from Web API
             if (!response.ok) {
+                error = document.getElementById("output")
                 const errorMsg = 'Signup error: ' + response.status;
-                console.log(errorMsg);
+                error.innerHTML = errorMsg
                 return;
             }
             // Success!!!
