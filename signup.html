@@ -79,18 +79,11 @@
     <div class="signup-container">
         <h1>Sign Up</h1>
         <form>
-            <label for="name">Name (First and Last):</label>
-            <input type="text" name="mame" id="name" required>
-            <br>
             <label for="uid">Username:</label>
-            <input type="text" name="uid" id="signupuser" required>
-            <br>
-            <label for="dob">Date of Birth:</label>
-            <input type="text" name="dob" id="dob" required>
-            <p style="font-size: 11px;">Note: Please put it in (year-month-day) format.</p>
+            <input type="text" name="uid" id="uid" required>
             <br>
             <label for="password">Password:</label>
-            <input type="password" name="password" id="signuppass" required>
+            <input type="password" name="password" id="password" required>
             <br>
             <button type="button" text="Sign Up" onclick="signup_user()">Sign Up</button>
         </form>
@@ -101,40 +94,14 @@
 </body>
 <script>
     import { uri, options } from '{{site.baseurl}}/assets/js/api/config.js';
-
-    function submitDOB() {
-        var dob = document.getElementById("dob").value;
-
-        // Create a new XMLHttpRequest object
-        var xhr = new XMLHttpRequest();
-
-        // Configure it: GET-request for the URL /process with the date as a query parameter
-        xhr.open('GET', '/process?dob=' + dob, true);
-
-        // Send the request
-        xhr.send();
-
-        // Optional: handle the response if needed
-        xhr.onload = function() {
-            if (xhr.status >= 200 && xhr.status < 300) {
-            // Request was successful, you can handle the response here if needed
-            console.log('Date of birth submitted successfully');
-            } else {
-            // Request failed
-            console.error('Date of birth submission failed');
-            }
-        };
-        }
     function signup_user(){
         // Set Authenticate endpoint
         const url = uri + '/api/users/';
 
         // Set the body of the request to include login data from the DOM
         const body = {
-            name: document.getElementById("name").value,
             uid: document.getElementById("uid").value,
             password: document.getElementById("password").value,
-            dob: document.getElementById("dob").value
         };
 
         // Change options according to Authentication requirements
