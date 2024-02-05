@@ -78,61 +78,59 @@
 <body>
     <div class="signup-container">
         <h1>Sign Up</h1>
-        <form>
+        <form id="registrationForm">
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" required><br>
             <label for="uid">Username:</label>
-            <input type="text" name="uid" id="uid" required>
-            <br>
+            <input type="text" id="uid" name="uid" required><br>
+            <label for="dob">Date of Birth:</label>
+            <input type="text" id="dob" name="dob" required><br>
             <label for="password">Password:</label>
-            <input type="password" name="password" id="password" required>
-            <br>
-            <button type="button" text="Sign Up" onclick="signup_user()">Sign Up</button>
+            <input type="password" id="password" name="password" required><br>
+            <label for="confirmPassword">Confirm Password:</label>
+            <input type="password" id="confirmPassword" name="confirmPassword" required><br>
+            <input type="submit" value="Create User">
         </form>
         <div id="output" class="message"></div>
-    <a href="https://lin-ct.github.io/demonstration_frontend/login.html">Sign Up</a>
+    <a href="https://lin-ct.github.io/demonstration_frontend/login.html">Log In</a>
     </div>
 </body>
-<script type="module">
-    import { uri, options } from '{{site.baseurl}}/assets/js/api/config.js';
-</script>
 <script>
-    function signup_user(){
-        // Set Authenticate endpoint
-        const url = uri + '/api/users/';
-
-        // Set the body of the request to include login data from the DOM
-        const body = {
-            uid: document.getElementById("uid").value,
-            password: document.getElementById("password").value,
-        };
-
-        // Change options according to Authentication requirements
-        const authOptions = {
-            ...options, // This will copy all properties from options
-            method: 'POST', // Override the method property
-            cache: 'no-cache', // Set the cache property
-            body: JSON.stringify(body)
-        };
-
-        // Fetch JWT
-        fetch(url, authOptions)
-        .then(response => {
-            // handle error response from Web API
-            if (!response.ok) {
-                error = document.getElementById("output")
-                const errorMsg = 'Signup error: ' + response.status;
-                error.innerHTML = errorMsg
+     document.getElementById('registrationForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent form submission
+            const name = document.getElementById('name').value;// DEFINE VALUES
+            const uid =  document.getElementById('uid').value;
+            const password = document.getElementById('password').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+            const dob = document.getElementById('dob').value;
+            if (password !== confirmPassword) {
+                alert("Passwords do not match");
                 return;
             }
-            // Success!!!
-            // Redirect to the database page
-            window.location.href = "https://lin-ct.github.io/demonstration_frontend/login.html";
-        })
-        // catch fetch errors (ie ACCESS to server blocked)
-        .catch(err => {
-            console.error(err);
+            const formData = {
+                "name": name,
+                "uid": uid,
+                "password": password,
+                "dob": dob
+                // Add other form fields as needed
+            };
+            fetch('http://127.0.0.1:8240/api/users/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(formData)
+            })
+             .then(response => {
+                 if (response.ok) {
+                    window.location.href = 'https://lin-ct.github.io/demonstration_frontend/login.html'; // Redirect upon successful user creation
+                } else {
+                    console.error('User creation failed');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
         });
-    }
-
-    // Attach login_user to the window object, allowing access to form action
-    window.signup_user = signup_user;
-</script>
+    </script>
+</html>
