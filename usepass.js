@@ -32,7 +32,7 @@ function login(){
         }
         // Success!!!
         // Redirect to the database page
-        window.location.href = "/csp-blog//log/2024/01/30/Users.html";
+        window.location.href = "https://lin-ct.github.io/demonstration_frontend/CRUD.html";
     })
     // catch fetch errors (ie ACCESS to server blocked)
     .catch(err => {
@@ -42,3 +42,4 @@ function login(){
 
 // Attach login_user to the window object, allowing access to form action
 window.login_user = login_user;
+
