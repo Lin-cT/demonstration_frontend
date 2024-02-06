@@ -4,7 +4,7 @@ owner_name: Lindsay Tang
 github_username: Lin-ct
 github_repo: "demonstration_frontend"
 baseurl: "/demonstration_frontend"
-remote_theme: jekyll/minima
+remote_theme: pages-themes/midnight@v0.2.0
 # remote_theme: pages-themes/dinky@v0.2.0
 # remote_theme: pages-themes/minimal@v0.2.0
 # remote_theme: pages-themes/hacker@v0.2.0
