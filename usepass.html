@@ -1,8 +1,10 @@
 <script>
     function login(){
+        console.log("Starting!")
         // Set Authenticate endpoint
         const url = 'http://127.0.0.1:8086/api/users/authenticate';
-
+        
+        console.log("Getting body.")
         // Set the body of the request to include login data from the DOM
         const body = {
             uid: document.getElementById("uid").value,
@@ -51,9 +53,11 @@
     import { uri, options } from 'https://lin-ct.github.io/demonstration_frontend/assets/js/api/config.js';
         
         function signup_user() {
+            console.log("Starting!")
             // Set Create User endpoint
             const url = uri + '/api/users/';
-        
+
+            console.log("Getting body.")
             // Set body of request to include signup data from DOM
             const body = {
                 name: document.getElementById("name").value,
@@ -62,14 +66,16 @@
                 dob: document.getElementById("dob").value,
             };
         
+            console.log("Create Options:")
             // Change options according to Authentication requirements
             const createOptions = {
                 ...options,
                 method: 'POST',
                 cache: 'no-cache',
                 body: JSON.stringify(body)
-            };
-        
+            }
+
+            console.log("Fetching to get user:")
             // Fetch to create user
             fetch(url, createOptions)
                 .then(response => {
@@ -81,7 +87,8 @@
                         error.innerHTML = errorMsg
                         return;
                     }
-        
+
+                    console.log("Success!")
                     // Success - user created
                     alert("User created successfully!");
                     window.location.href = "https://lin-ct.github.io/demonstration_frontend/login.html";
