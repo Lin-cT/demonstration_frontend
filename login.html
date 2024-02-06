@@ -77,7 +77,7 @@
     </div>
 </body>
 <script>
-    function login(){
+function login(){
     // Set Authenticate endpoint
     const url = 'http://127.0.0.1:8086/api/users/authenticate';
 
@@ -106,12 +106,12 @@
         if (!response.ok) {
             error = document.getElementById("output")
             const errorMsg = 'Login error: ' + response.status;
+            console.log(errorMsg);
+            alert("Failed Authentication: Credentials Incorrect")
             error.innerHTML = errorMsg
             return;
         }
         // Success!!!
-        // Call attachJwtTokenToRequests to attach JWT token to subsequent requests
-        attachJwtTokenToRequests();
         // Redirect to the database page
         window.location.href = "https://lin-ct.github.io/demonstration_frontend/CRUD.html";
     })
