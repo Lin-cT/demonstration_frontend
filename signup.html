@@ -78,19 +78,62 @@
 <body>
     <div class="signup-container">
         <h1>Sign Up</h1>
-        <form action="javascript:signup_user()">
-            <p><label>Name:<input type="text" name="name" id="name" required></label></p>
-            <p><label>Username:<input type="text" name="uid" id="uid" required></label></p>
-            <p><label>Password:<input type="password" name="password" id="password" required></label></p>
-            <p><label>Date of Birth:<input type="date" name="dob" id="dob" required></label></p>
-            <p><button class="signup-button">Sign Up</button></p>
+        <form id="registration">
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" required>
+            <br>
+            <label for="uid">Username:</label>
+            <input type="text" id="uid" name="uid" required>
+            <br>
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required>
+            <br>
+            <label for="confirmPassword">Confirm Password:</label>
+            <input type="password" id="confirmPassword" name="confirmPassword" required>
+            <br>
+            <label for="dob">Date of Birth:</label>
+            <input type="text" id="dob" name="dob" required><br>
+            <input type="submit" value="Create User">
         </form>
         <a id="signup" href="https://lin-ct.github.io/demonstration_frontend/login.html">Already Have an Account? Log In</a>
     </div>
 </body>
-<script src="https://lin-ct.github.io/demonstration_frontend/usepass.html">
-        // Attach signup_user to the window object, allowing access to form action
-        window.signup_user = signup_user;
-</script>
+<script>
+        document.getElementById('registration').addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent form submission
+            const name = document.getElementById('name').value;// DEFINE VALUES
+            const uid =  document.getElementById('uid').value;
+            const password = document.getElementById('password').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+            const dob = document.getElementById('dob').value;
+            if (password !== confirmPassword) {
+                alert("Passwords do not match");
+                return;
+            }
+            const formData = {
+                "name": name,
+                "uid": uid,
+                "password": password,
+                "dob": dob
+                // Add other form fields as needed
+            };
+            fetch('http://127.0.0.1:8086/api/users/create', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(formData)
+            })
+             .then(response => {
+                 if (response.ok) {
+                    window.location.href = 'https://lin-ct.github.io/demonstration_frontend/CRUD.html'; // Redirect upon successful user creation
+                } else {
+                    console.error('User creation failed');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        });
+    </script>
 </html>
-
