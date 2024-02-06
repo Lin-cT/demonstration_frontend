@@ -1,5 +1,5 @@
 ---
-permalink: /data
+permalink: /get
 ---
 
 <html>
@@ -26,7 +26,7 @@ let options = {
             document.getElementById("data").textContent = JSON.stringify(data, null, 2);
             }
             else {
-                document.getElementById("data").textContent = "Unauthorized.";
+                document.getElementById("data").textContent = "403 Unauthorized.";
             }
         })
 </script>
