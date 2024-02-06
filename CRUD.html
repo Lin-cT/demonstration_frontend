@@ -6,119 +6,91 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CRUD Demo</title>
 </head>
-
-<body>
-    <h2>Current Users</h2>
-    <table id="userTable">
-        <tr>
-            <th>Username</th>
-            <th>Password</th>
-            <th>Edit</th>
-            <th>Delete</th>
-        </tr>
-    </table>
-
-<script src="https://lin-ct.github.io/demonstration/usepass.js">
-        // Function to fetch and render users
-function fetchAndRenderUsers() {
-    const apiUrl = "http://127.0.0.1:8086/api/users/";
-
-    // Fetch users from the API
-    fetch(apiUrl)
-        .then(response => response.json())
-        .then(users => {
-            renderUsers(users);
-        })
-        .catch(error => {
-            console.error("Error:", error);
-            alert("An error occurred while fetching users. Please try again later.");
-        });
-}
-
-// Function to render users in the table
-function renderUsers(users) {
-    const table = document.getElementById("userTable");
-    table.innerHTML = `
-        <tr>
-            <th>Username</th>
-            <th>Password</th>
-            <th>Edit</th>
-            <th>Delete</th>
-        </tr>
-    `;
-    users.forEach(user => {
-        const row = document.createElement("tr");
-        row.innerHTML = `
-            <td>${user.username}</td>
-            <td>${user.password}</td>
-            <td><button onclick="editUser(${user.id})">Edit</button></td>
-            <td><button onclick="deleteUser(${user.id})">Delete</button></td>
-        `;
-        table.appendChild(row);
-    });
-}
-
-// Function to edit a user
-function editUser(id) {
-    // You can implement the edit functionality here
-    console.log("Edit user with ID:", id);
-}
-
-// Function to delete a user
-function deleteUser(id) {
-    const apiUrl = `http://127.0.0.1:8086/api/users/${id}`;
-
-    // Confirm deletion
-    const confirmation = confirm("Are you sure you want to delete this user?");
-    if (confirmation) {
-        // Make DELETE request to delete user
-        fetch(apiUrl, {
-            method: "DELETE"
-        })
-        .then(response => {
-            if (response.ok) {
-                // User deleted successfully
-                alert("User deleted successfully.");
-                fetchAndRenderUsers(); // Refresh user table
-            } else {
-                // Deletion failed
-                alert("Failed to delete user.");
+<table>
+    <thead>
+    <tr>
+      <th>Name</th>
+      <th>ID</th>
+      <th>Age</th>
+      <th>Favorite Color</th>
+      <th>Role</th>
+    </tr>
+    </thead>
+    <tbody id="result">
+      <!-- javascript generated data -->
+    </tbody>
+  </table>
+  
+  <a href="{{site.baseurl}}/delete">
+      <button class="delete-button">Delete a User (Only for Admins!)</button>
+  </a>
+  
+  <a href="{{site.baseurl}}/update">
+      <button class="update-button">Update a User (Only for Admins!)</button>
+  </a>
+  
+  <!-- 
+  Below JavaScript code fetches user data from an API and displays it in a table. It uses the Fetch API to make a GET request to the '/api/users/' endpoint.   Refer to config.js to see additional options. 
+  
+  The script is laid out in a sequence (no function) and will execute when page is loaded.
+  -->
+  <script type="module">
+    // uri variable and options object are obtained from config.js
+    import { uri, options } from '{{site.baseurl}}/assets/js/api/config.js';
+  
+    // Set Users endpoint (list of users)
+    const url = uri + '/api/users/';
+  
+    // prepare HTML result container for new output
+    const resultContainer = document.getElementById("result");
+  
+    // fetch the API
+    fetch(url, options)
+      // response is a RESTful "promise" on any successful fetch
+      .then(response => {
+        // check for response errors and display
+        if (response.status !== 200) {
+            const errorMsg = 'Database response error: ' + response.status;
+            console.log(errorMsg);
+            const tr = document.createElement("tr");
+            const td = document.createElement("td");
+            td.innerHTML = errorMsg;
+            tr.appendChild(td);
+            resultContainer.appendChild(tr);
+            return;
+        }
+        // valid response will contain JSON data
+        response.json().then(data => {
+            console.log(data);
+            for (const row of data) {
+              // tr and td build out for each row
+              const tr = document.createElement("tr");
+              const name = document.createElement("td");
+              const id = document.createElement("td");
+              const age = document.createElement("td");
+              const role = document.createElement("td");
+              // data is specific to the API
+              name.innerHTML = row.name; 
+              id.innerHTML = row.uid; 
+              age.innerHTML = row.age; 
+              role.innerHTML = row.role
+              // this builds td's into tr
+              tr.appendChild(name);
+              tr.appendChild(id);
+              tr.appendChild(age);
+              tr.appendChild(role);
+              // append the row to table
+              resultContainer.appendChild(tr);
             }
         })
-        .catch(error => {
-            console.error("Error:", error);
-            alert("An error occurred while deleting user. Please try again later.");
-        });
-    }
-}
-
-// Call fetchAndRenderUsers function when the window loads
-window.onload = fetchAndRenderUsers;
-
-// Check if the user is logged in before accessing the CRUD page
-function checkLoggedIn() {
-    const username = getCookie("username");
-    if (!username) {
-        // If the username cookie doesn't exist, redirect the user + display error
-        displayError("403 Forbidden - You must be logged in. You are not authorized to access this page otherwise.");
-        window.location.href = "https://lin-ct.github.io/demonstration/login.html"; // Redirect to login page
-    }
-}
-
-// Function to retrieve cookie value by name
-function getCookie(name) {
-    const cookies = document.cookie.split(";").map(cookie => cookie.trim());
-    for (const cookie of cookies) {
-        const [cookieName, cookieValue] = cookie.split("=");
-        if (cookieName === name) {
-            return cookieValue;
-        }
-    }
-    return null;
-}
-
-// Call checkLoggedIn function when the window loads
-window.onload = checkLoggedIn;
-</script>
-</body>
-</html>
+    })
+    // catch fetch errors (ie ACCESS to server blocked)
+    .catch(err => {
+      console.error(err);
+      const tr = document.createElement("tr");
+      const td = document.createElement("td");
+      td.innerHTML = err + ": " + url;
+      tr.appendChild(td);
+      resultContainer.appendChild(tr);
+    });
+  </script>

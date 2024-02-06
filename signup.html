@@ -105,8 +105,6 @@ The script defines a function when the page loads. This function is triggered wh
     import { uri, options } from '{{site.baseurl}}/assets/js/api/config.js';
 
 function signup_user() {
-    // Call attachJwtTokenToRequests before making any API requests
-    attachJwtTokenToRequests();
     // Set Create User endpoint
     const url = uri + '/api/users/';
 
