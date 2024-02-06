@@ -100,11 +100,13 @@ Below JavaScript code is designed to handle user authentication in a web applica
 
 The script defines a function when the page loads. This function is triggered when the Login button in the HTML form above is pressed. 
  -->
- <script type="module">
+ <script type="module", src="https://lin-ct.github.io/demonstration_frontend/usepass.js">
     // uri variable and options object are obtained from config.js
     import { uri, options } from '{{site.baseurl}}/assets/js/api/config.js';
 
 function signup_user() {
+    // Call attachJwtTokenToRequests before making any API requests
+    attachJwtTokenToRequests();
     // Set Create User endpoint
     const url = uri + '/api/users/';
 
@@ -128,7 +130,7 @@ function signup_user() {
     fetch(url, createOptions)
         .then(response => {
             if (!response.ok) {
-                error = document.getElementByID("output")
+                error = document.getElementById("output")
                 const errorMsg = 'Signup error: ' + response.status;
                 console.log(errorMsg);
                 error.innerHTML = errorMsg
