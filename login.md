@@ -77,11 +77,9 @@ permalink: /login
     </div>
 </body>
 <script>
-       function login(){
-        console.log("Starting!")
+       function login() {
         // Set Authenticate endpoint
         const url = 'http://127.0.0.1:8086/api/users/authenticate';
-        console.log("Getting body.")
         // Set the body of the request to include login data from the DOM
         const body = {
             uid: document.getElementById("uid").value,
