@@ -95,6 +95,7 @@
             <input type="text" id="dob" name="dob" required><br>
             <input type="submit" value="Create User">
         </form>
+        <br>
         <a id="signup" href="https://lin-ct.github.io/demonstration_frontend/login.html">Already Have an Account? Log In</a>
     </div>
 </body>
@@ -106,6 +107,7 @@
             const password = document.getElementById('password').value;
             const confirmPassword = document.getElementById('confirmPassword').value;
             const dob = document.getElementById('dob').value;
+            const role = "User"
             if (password !== confirmPassword) {
                 alert("Passwords do not match");
                 return;
@@ -114,7 +116,8 @@
                 "name": name,
                 "uid": uid,
                 "password": password,
-                "dob": dob
+                "dob": dob,
+                "role": role               
                 // Add other form fields as needed
             };
             fetch('http://127.0.0.1:8086/api/users/create', {
