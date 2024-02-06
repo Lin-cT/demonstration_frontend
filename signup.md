@@ -78,82 +78,46 @@ permalink: /signup
     </style>
 </head>
 <body>
-    <div class="signup-container">
-        <form action="javascript:signup_user()">
-            <p><label>Name:
-            <input type="text" name="name" id="name" required>
-            </label></p>
-            <p><label>User ID:
-            <input type="text" name="uid" id="uid" required>
-            </label></p>
-            <p><label>
-            Password:
-            <input type="password" name="password" id="password" required>
-            </label></p>
-            <p><label>
-            Date of Birth:
-            <input type="date" name="dob" id="dob" required>
-            </label></p>
-            <p><label>
-            Favorite Color:
-            <input type="text" name="color" id="color" required>
-            </label></p>
-            <p>
-            <button class="signup-button">Sign Up</button>
-            </p>
-        </form>
-    </div>
+<div class="form-container">
+    <h2 id="pageTitle">Sign Up</h2>
+    <form>
+        <input type="text" id="name" class="input" placeholder="Full Name"><br>
+        <input type="text" id="user" class="input" placeholder="Username"><br>
+        <input type="password" id="pass" class="input" placeholder="Password">
+    </form>
+    <button class="submit" onclick="signup()">Sign Up</button>
+    <p id="error"></p>
+    <button onclick="switchToLogin()">Switch to Login</button>
+</div>
 </body>
-
-<!-- 
-Below JavaScript code is designed to handle user authentication in a web application. It's written to work with a backend server that uses JWT (JSON Web Tokens) for authentication.
-
-The script defines a function when the page loads. This function is triggered when the Login button in the HTML form above is pressed. 
- -->
-<script type="module">
-    // uri variable and options object are obtained from config.js
-    import { uri, options } from 'https://lin-ct.github.io/demonstration_frontend/assets/js/api/config.js';
-
-function signup_user() {
-    // Set Create User endpoint
-    const url = uri + '/api/users/';
-
-    // Set body of request to include signup data from DOM
-    const body = {
-        name: document.getElementById("name").value,
-        uid: document.getElementById("uid").value,
-        password: document.getElementById("password").value,
-        dob: document.getElementById("dob").value,
-        color: document.getElementById("color").value,
-    };
-
-    // Change options according to Authentication requirements
-    const createOptions = {
-        ...options,
-        method: 'POST',
-        cache: 'no-cache',
-        body: JSON.stringify(body)
-    };
-
-    // Fetch to create user
-    fetch(url, createOptions)
-        .then(response => {
-            if (!response.ok) {
-                const errorMsg = 'Signup error: ' + response.status;
-                console.log(errorMsg);
-                alert("Error creating user");
-                return;
-            }
-
-            // Success - user created
-            alert("User created successfully!");
-            window.location.href = "https://lin-ct.github.io/demonstration_frontend/login";
-        })
-        .catch(err => {
-            console.error(err);
-        });
+<script>
+function switchToLogin() {
+    window.location.href = "http://127.0.0.1:4200/demonstration_frontend/login";
 }
-    // Attach signup_user to the window object, allowing access to form action
-    window.signup_user = signup_user;
+function signup() {
+    data = {
+        "name": document.getElementById("name").value,
+        "uid": document.getElementById("user").value,
+        "password": document.getElementById("pass").value,
+        }
+    let options = {
+    method: 'POST',
+    headers: {
+        'Content-Type':
+            'application/json;charset=utf-8'
+    },
+    body: JSON.stringify(data)
+}
+    let sign_up = fetch('http://127.0.0.1:8086/api/users/', options);
+    sign_up.then(response => {
+        if (response.status === 200) {
+            window.location.href = "http://127.0.0.1:4200/demonstration_frontend/login"
+        }
+        else if (response.status === 400) {
+            document.getElementById("error").innerHTML = "You already have an account! Go to the login page."
+        }
+    }
+        ) 
+}
 </script>
 </html>

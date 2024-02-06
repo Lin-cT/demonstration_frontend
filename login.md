@@ -59,64 +59,67 @@ permalink: /login
         }
     </style>
 </head>
-<body>
-    <div class="login-container">
-        <h1>Login</h1>
-        <form id="loginForm">
-            <label for="uid">Username:</label>
-            <input type="text" id="uid" name="username" required>
-            <br>
-            <label for="password">Password:</label>
-            <input type="password" id="password" name="password" required>
-            <br>
-            <button type="button" onclick="login()">Login</button>
-        </form>
-        <div id="output" class="message"></div>
-        <br>
-        <a id="signup" href="https://lin-ct.github.io/demonstration_frontend/signup.html">Log In</a>
-    </div>
-</body>
+<div class="form-container">
+    <h2 id="pageTitle">Login</h2>
+    <form>
+        <input type="text" id="name" class="input" placeholder="Full Name"><br>
+        <input type="text" id="user" class="input" placeholder="Username"><br>
+        <input type="password" id="pass" class="input" placeholder="Password">
+    </form>
+    <button class="submit" onclick="signup()">Log In</button>
+    <p id="error"></p>
+    <button onclick="switchToSignup()">Switch to Signup</button>
+</div>
 <script>
-       function login() {
-        // Set Authenticate endpoint
-        const url = 'http://127.0.0.1:8086/api/users/authenticate';
-        // Set the body of the request to include login data from the DOM
-        const body = {
-            uid: document.getElementById("uid").value,
-            password: document.getElementById("password").value,
-        };
-        // Change options according to Authentication requirements
-        const authOptions = {
-            mode: 'cors', // no-cors, *cors, same-origin
-            credentials: 'include', // include, same-origin, omit
+    function switchToSignup() {
+        window.location.href = "http://127.0.0.1:4200/demonstration_frontend/signup";
+    }
+    function signup() {
+        data = {
+            "name": document.getElementById("name").value,
+            "uid": document.getElementById("user").value,
+            "password": document.getElementById("pass").value,
+        }
+        let options = {
+            method: 'POST',
             headers: {
-                'Content-Type': 'application/json',
+                'Content-Type': 'application/json;charset=utf-8'
             },
-            method: 'POST', // Override the method property
-            cache: 'no-cache', // Set the cache property
-            body: JSON.stringify(body)
-        };
-        // Fetch JWT
-        fetch(url, authOptions)
+            body: JSON.stringify(data),
+            credentials: 'include'
+        }
+        fetch('http://127.0.0.1:8086/api/users/authenticate', options)
         .then(response => {
-            // handle error response from Web API
-            if (!response.ok) {
-                error = document.getElementById("output")
-                const errorMsg = 'Login error: ' + response.status;
-                console.log(errorMsg);
-                alert("Failed Authentication: Credentials Incorrect")
-                error.innerHTML = errorMsg
-                return;
+            if (response.ok) {
+                // Handle successful login
+                const headers = response.headers;
+                const headerEntries = [...headers.entries()]
+                console.log('Response Headers:', headerEntries)
+                console.log('All Cookies:', document.cookie);
+                document.getElementById("error").innerHTML = ""
+                const jwtCookie = getCookie('jwt');
+                if (jwtCookie) {
+                    console.log('JWT Token:', jwtCookie);
+                } else {
+                    console.log('JWT Token not found');
+                }
+                // Redirect to the desired page after successful login
+                window.location.href = "http://127.0.0.1:4200/demonstration_frontend/CRUD";
             }
-            // Success!!!
-            // Redirect to the database page
-            window.location.href = "https://lin-ct.github.io/demonstration_frontend/CRUD.html";
+            else {
+                // Handle incorrect login information
+                document.getElementById("error").innerHTML = "Incorrect Login Information";
+                // You can also redirect to an error page or display a 403 error here
+            }
         })
-        // catch fetch errors (ie ACCESS to server blocked)
-        .catch(err => {
-            console.error(err);
+        .catch(error => {
+            console.error("Error:", error);
         });
     }
-    window.login_user = login_user;
+    function getCookie(name) {
+        const value = `; ${document.cookie}`;
+        const parts = value.split(`; ${name}=`);
+        if (parts.length === 2) return parts.pop().split(';').shift();
+    }
 </script>
 </html>
