@@ -1,5 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
+---
+permalink: /CRUD
+---
+
 
 <head>
     <meta charset="UTF-8">
@@ -8,15 +10,15 @@
 </head>
 
 <body>
+<div class="form-container">
     <a href="http://127.0.0.1:4200/demonstration_frontend/update">
-        <button id="update-btn" class="update-delete-button">Update</button>
+        <button id="update-btn" class="btn">Update</button>
     </a>
     <a href="http://127.0.0.1:4200/demonstration_frontend/delete">
-        <button id="delete-btn" class="update-delete-button">Delete (Admin Only)</button>
+        <button id="delete-btn" class="btn">Delete (Admin Only)</button>
     </a>
     <a href="http://127.0.0.1:4200/demonstration_frontend/get">
-        <button id="database-btn" class="data-button">Database (Admin Only)</button>
+        <button id="database-btn" class="btn">Database (Admin Only)</button>
     </a>
+    </div>
 </body>
-
-</html>

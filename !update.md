@@ -6,9 +6,9 @@ permalink: /update
 <div>
 <pre id = "data"></pre>
 <form>
-<input type="text" id = "username" class = "input" placeholder = "new username">
+<input type="text" id = "name" class = "input" placeholder = "name">
 <br>
-<input type="text" id = "uid" class = "input" placeholder = "old username">
+<input type="text" id = "uid" class = "input" placeholder = " username">
 </form>
 <br>
 <button class = "submit" onclick = "update()">Change</button>
@@ -17,9 +17,9 @@ permalink: /update
 <script>
 function update() {
     data = {
-        "name": document.getElementById("username").value,
+        "name": document.getElementById("name").value,
         "uid": document.getElementById("uid").value,
-        "role": "admin"
+        "role": "Admin"
     }
     let options = {
     method: 'PUT',

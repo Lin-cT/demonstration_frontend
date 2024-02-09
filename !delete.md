@@ -15,7 +15,7 @@ permalink: /delete
 function delete() {
     data = {
         "uid": document.getElementById("_uid").value,
-        "role": "admin"
+        "role": "Admin"
     }
     let options = {
     method: 'DELETE',

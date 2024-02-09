@@ -1,13 +1,80 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Sign Up or Log In</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: url('https://files.catbox.moe/s0crnn.jpeg') center center fixed;
+            background-size: cover;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: white;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .form-container {
+            min-width: 400px;
+            margin: 50px auto;
+            text-align: center;
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .container {
+            text-align: center;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            margin: 10px;
+            cursor: pointer;
+            border: none;
+            border-radius: 5px;
+        }
+
+        #signup {
+            background-color: #FF5733;
+            color: white;
+        }
+
+        #signup:hover {
+            background-color: #E64919;
+        }
+
+        #login:hover {
+            background-color: #dfdfdf;
+        }
+
+        h1 {
+            font-size: 48px;
+            margin-bottom: 20px;
+            font-family: Garamond, serif;
+            color: black;
+        }
+    </style>
+    <title>Login and Signup Demonstration</title>
 </head>
 <body>
-        <button class="btn"><a class="btn-signup" href="http://127.0.0.1:4200/demonstration_frontend/signup">Sign Up</a></button>
-        <button class="btn"><a class="btn-login" href="http://127.0.0.1:4200/demonstration_frontend/login">Log In</a></button>
-        <button class="btn"><a class="btn-CRUD" href="http://127.0.0.1:4200/demonstration_frontend/CRUD">CRUD</a></button>
+    <div class="form-container">
+        <h1>Login-Signup Demonstration</h1>
+        <div class="container">
+            <button id="login"><a href="http://127.0.0.1:4200/demonstration_frontend/login">Log In</a></button>
+            <button id="signup"><a href="http://127.0.0.1:4200/demonstration_frontend/signup">Sign Up</a></button>
+        </div>
+    </div>
 </body>
 </html>
+
+
+
+
+
