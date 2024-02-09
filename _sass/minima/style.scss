@@ -1,0 +1,119 @@
+/* General styling */
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f4f4f4;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  background: url('https://files.catbox.moe/s0crnn.jpeg') center center fixed;
+  background-size: cover;
+}
+
+/* Index styling */
+.btn {
+  padding: 0;
+  margin: 10px;
+  border: none;
+  cursor: pointer;
+  background: none;
+  font-size: 16px;
+  text-decoration: none;
+}
+.form-container {
+  min-width: 400px;
+  margin: 50px auto;
+  text-align: center;
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.input {
+  width: 100%;
+  padding: 10px;
+  margin: 8px 0;
+  box-sizing: border-box;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.input:focus {
+  outline: none;
+  border-color: #FF5733; // Sunset orange
+}
+
+#user, #pass {
+  margin-bottom: 16px;
+}
+
+.submit {
+  background-color: #FF5733; // Sunset orange
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  cursor: pointer;
+}
+
+/* Navigation styling */
+nav {
+  background-color: #FF5733; // Sunset orange
+  overflow: hidden;
+}
+
+nav a, nav button {
+  float: left;
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  transition: background-color 0.3s;
+}
+
+nav a:hover, nav button:hover {
+  background-color: #FF8C66; // Lighter shade of sunset orange
+  color: black;
+}
+
+nav a.active, nav button.active {
+  background-color: #FF8C66; // Lighter shade of sunset orange
+  color: white;
+}
+/* Specific styling for additional buttons */
+.update-delete-button {
+  background-color: #FF5733; // Sunset orange
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  cursor: pointer;
+  margin: 10px auto; /* Centering the buttons */
+}
+
+#database-btn {
+  background-color: #FF5733; // Sunset orange
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  cursor: pointer;
+  margin: 10px auto; /* Centering the buttons */
+}
+
+#database-btn:hover {
+  background-color: #FF8C66; // Lighter shade of sunset orange
+  color: black;
+}
+
+#delete-btn:hover {
+  background-color: #FF8C66; // Lighter shade of sunset orange
+  color: black;
+}
+
+#update-btn:hover {
+  background-color: #FF8C66; // Lighter shade of sunset orange
+  color: black;
+}
