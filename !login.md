@@ -55,7 +55,7 @@ permalink: /login
             }
             else {
                 // Handle incorrect login information
-                document.getElementById("error").innerHTML = "Incorrect Login Information";
+                document.getElementById("error").innerHTML = "Invalid Login Credentials";
                 // You can also redirect to an error page or display a 403 error here
             }
         })

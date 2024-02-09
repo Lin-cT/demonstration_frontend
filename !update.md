@@ -37,7 +37,7 @@ function update() {
         .then(({data, access}) => {
             console.log(access)
             if (access){ 
-            document.getElementById("data").textContent = "Data Successfully Changed";
+            document.getElementById("data").textContent = "Data Changed";
             }
             else {
                 document.getElementById("data").textContent = "Unauthorized.";

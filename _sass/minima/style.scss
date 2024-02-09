@@ -141,3 +141,17 @@ nav a.active, nav button.active {
   background-color: #FF8C66; // Lighter shade of sunset orange
   color: black;
 }
+table {
+  border-collapse: collapse;
+  width: 100%;
+  background-color: white; /* Set table background color to white */
+}
+th, td {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+  background-color: white; /* Set cell background color to white */
+}
+th {
+  background-color: #f2f2f2; /* You can keep header background color if you like */
+}

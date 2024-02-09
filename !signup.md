@@ -42,7 +42,7 @@ function signup() {
             window.location.href = "http://127.0.0.1:4200/demonstration_frontend/login"
         }
         else if (response.status === 400) {
-            document.getElementById("error").innerHTML = "You already have an account! Go to the login page."
+            document.getElementById("error").innerHTML = "An account with these credentials already exists."
         }
     }
         ) 
